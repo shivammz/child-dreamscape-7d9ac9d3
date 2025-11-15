@@ -20,7 +20,7 @@ const CTASection = () => {
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-3xl mx-auto space-y-8 animate-fade-in-slow">
           <h2 className="font-playfair text-5xl md:text-6xl font-bold text-primary-foreground leading-tight">
-            Be Part of Their <span className="text-accent">Journey</span>
+            Be the reason a child <span className="text-accent">smiles today</span>
           </h2>
 
           <p className="font-inter text-xl text-primary-foreground/90">
@@ -29,13 +29,13 @@ const CTASection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
-            <Button variant="hero" size="lg" className="group shadow-float min-w-[200px]">
+            <Button variant="hero" size="lg" className="group shadow-float min-w-[200px] animate-glow">
               <Heart className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
               Donate Now
             </Button>
             <Button variant="heroSecondary" size="lg" className="group min-w-[200px]">
               <Users className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-              Join as Volunteer
+              Become a Volunteer
             </Button>
           </div>
         </div>

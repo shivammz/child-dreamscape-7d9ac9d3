@@ -1,49 +1,119 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import founderImage from "@/assets/founder-with-children.jpg";
+import educateImage from "@/assets/educate.jpg";
+import nurtureImage from "@/assets/nurture.jpg";
+import empowerImage from "@/assets/empower.jpg";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const WhoWeAreSection = () => {
-  return (
-    <section id="about" className="py-24 bg-muted relative overflow-hidden">
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-      </div>
+  const collageRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          {/* Image Side */}
-          <div className="relative animate-fade-in">
-            <div className="absolute -inset-4 bg-gradient-warm opacity-20 rounded-2xl blur-2xl" />
-            <img
-              src={founderImage}
-              alt="Founder with children"
-              className="relative rounded-2xl shadow-float w-full h-[500px] object-cover"
-            />
+  useEffect(() => {
+    if (collageRef.current) {
+      const images = collageRef.current.querySelectorAll(".collage-image");
+      
+      gsap.from(images, {
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: collageRef.current,
+          start: "top 70%",
+        }
+      });
+    }
+
+    if (contentRef.current) {
+      gsap.from(contentRef.current.children, {
+        x: 50,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 75%",
+        }
+      });
+    }
+  }, []);
+
+  return (
+    <section id="about" className="py-24 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+          {/* Collage Side */}
+          <div ref={collageRef} className="relative h-[600px]">
+            {/* Main large image */}
+            <div className="collage-image absolute top-0 left-0 w-3/5 h-3/5 rounded-2xl overflow-hidden shadow-float transform -rotate-2">
+              <img
+                src={founderImage}
+                alt="Founder with children"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Top right image */}
+            <div className="collage-image absolute top-8 right-0 w-2/5 h-2/5 rounded-2xl overflow-hidden shadow-warm transform rotate-3">
+              <img
+                src={educateImage}
+                alt="Children learning"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Bottom left image */}
+            <div className="collage-image absolute bottom-16 left-8 w-2/5 h-2/5 rounded-2xl overflow-hidden shadow-soft transform rotate-2">
+              <img
+                src={nurtureImage}
+                alt="Caring moments"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Bottom right image */}
+            <div className="collage-image absolute bottom-0 right-12 w-1/3 h-1/3 rounded-2xl overflow-hidden shadow-warm transform -rotate-3">
+              <img
+                src={empowerImage}
+                alt="Empowering children"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Decorative elements */}
+            <div className="absolute -inset-8 bg-gradient-warm opacity-10 rounded-full blur-3xl -z-10" />
           </div>
 
           {/* Content Side */}
-          <div className="space-y-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-foreground">
+          <div ref={contentRef} className="space-y-8">
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-foreground leading-tight">
               We Don't Just Build Futures —
-              <span className="text-secondary"> We Nurture Dreams</span>
+              <span className="text-secondary block mt-2">We Nurture Dreams</span>
             </h2>
 
             <p className="font-inter text-lg text-muted-foreground leading-relaxed">
               Founded with love and purpose, the D.V. Singh Foundation exists because every child,
-              regardless of circumstance, carries within them infinite potential. We believe
-              education is not a privilege — it's a birthright.
+              regardless of circumstance, carries within them infinite potential.
             </p>
 
             <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-              Through compassion-driven programs and community support, we transform lives one
-              child at a time, creating ripples of hope that extend far beyond classrooms.
+              We believe education is not a privilege — it's a birthright. Through compassion-driven
+              programs and community support, we transform lives one child at a time.
             </p>
 
-            {/* Signature */}
-            <div className="pt-6">
-              <p className="font-playfair text-xl italic text-accent">
+            {/* Handwritten Quote */}
+            <div className="relative pt-8">
+              <div className="absolute left-0 top-0 w-16 h-1 bg-accent" />
+              <p className="font-playfair text-2xl italic text-accent leading-relaxed pl-2">
                 "We don't just build futures — we nurture dreams."
               </p>
-              <p className="font-inter text-sm text-muted-foreground mt-2">
+              <p className="font-inter text-sm text-muted-foreground mt-3 pl-2">
                 — D.V. Singh, Founder
               </p>
             </div>
